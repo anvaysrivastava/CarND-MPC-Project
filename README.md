@@ -27,6 +27,16 @@ For elapsed Duration any value between 0.9 to 0.12 was driving the car in accept
 
 The variables are present in `MPC.cpp line 8 and 9`
 
+### Polynomial Fitting and MPC Preprocessing
+
+Polynomial ditting is done in code at `MPC.cpp line 82 to line 109`. 
+
+In order to make polynomial fitting easy with reference x, y and psi as 0. In `main.cpp line 104 to line 112` I transformed the waypoints to car's perspective.
+
+### Model Predictive Control with Latency
+
+In order to handle latency, I made sure extra weights are assigned to the flux in steering and acceleration change. This makes sure that the car MPC control won't give contrasting steering/ acceleration input in corresponding steps.. This way with N = 10 and dt = 100 ms we can make sure that even if actuators are laggy, they can be handled as errors and approximated out in next iteration of MPC. `MPC.cpp line 46 to 70`
+
 
 ## Dependencies
 
