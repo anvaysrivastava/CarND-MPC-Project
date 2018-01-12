@@ -3,6 +3,31 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+## Writeup
+
+### The model
+The code used model defined in `Lesson 19: Chapter 9: Solution, Mind the line`
+The model is a kinematic model that uses vehicle's coordinate(x,y), velocity(v), orientation(psi), cross track error(cte), orientation error(epsi).
+
+Using the input we provide actuation in terms of acceleration(a) and steering(delta).
+
+The update equation is inspired by `Lesson 19: Chapter 9: Solution, Mind the line`
+![alt-text](https://github.com/anvaysrivastava/CarND-MPC-Project/blob/master/img/updateEquation.png)
+
+You can view the equation in code at `MPC.cpp line 104 to line 109`
+
+### Timestep Length and Elapsed Duration.
+
+I first played with timestep length. And realized 
+* for N > 13 the lag is too high as I believe by the time approximations end the car lag gets too long for actuators to be accurate, this result in a lot of swaying in car, even on straigh line.
+* for N < 8 the appoximations are too crude to go along with weights on steering smoothness and upper limit on steering angle.
+* Hence my final solution was to go for a rounded figure of 10.
+
+For elapsed Duration any value between 0.9 to 0.12 was driving the car in acceptable behavior. Hence I chose the value to be 0.1 seconds. This also gives a good over all roundoff number where car looks 1 second in future with 10 intervals. As well as this coinsidently overlaps with 100 ms lag mentioned about the actuators.
+
+The variables are present in `MPC.cpp line 8 and 9`
+
+
 ## Dependencies
 
 * cmake >= 3.5
