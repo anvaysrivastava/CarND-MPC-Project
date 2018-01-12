@@ -35,7 +35,7 @@ In order to make polynomial fitting easy with reference x, y and psi as 0. In `m
 
 ### Model Predictive Control with Latency
 
-* I delayed the actuators in the solver to account for latency. This is present in `MPC.cpp line 97 to 100`. The con of this approach is that my latency should be a multiple of dt. The solution for that was being discussed in [here](https://discussions.udacity.com/t/calibration-for-the-acceleration-and-steering-angle-for-latency-consideration/276413). However the car was not running stably despite many efforts. I am taking this as an action item in future.
+* I delayed the actuators in the solver to account for latency by feeding them previous acceleration and delta. This is present in `MPC.cpp line 97 to 100`. The con of this approach is that my latency should be a multiple of dt. The solution for that was being discussed in [here](https://discussions.udacity.com/t/calibration-for-the-acceleration-and-steering-angle-for-latency-consideration/276413). However the car was not running stably despite many efforts. I am taking this as an action item in future.
 * I also made sure extra weights are assigned to the flux in steering and acceleration change. This makes sure that the car MPC control won't give contrasting steering/ acceleration input in corresponding steps.. This way with N = 10 and dt = 100 ms we can make sure that even if actuators are laggy, they can be handled as errors and approximated out in next iteration of MPC. `MPC.cpp line 46 to 70`
 
 
